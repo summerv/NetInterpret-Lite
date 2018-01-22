@@ -100,8 +100,8 @@ class FeatureOperator:
             for i, feat_batch in enumerate(features_blobs):
                 if len(feat_batch.shape) == 4:
                     wholefeatures[i][start_idx:end_idx] = feat_batch
-                    # np.max(x, i) means get the max number in the i-th index of x
-                    # for example, np.max(feat_batch, 3) can get the max number in feat_batch[:,:,7*7]
+                    # np.max(x, i) means get the max number in the i-th index of x and return a list
+                    # x = [[1,5,3],[4,2,6]], np.max(x,0) == [1,2,3]
                     maxfeatures[i][start_idx:end_idx] = np.max(np.max(feat_batch,3),2)
                 elif len(feat_batch.shape) == 3:
                     maxfeatures[i][start_idx:end_idx] = np.max(feat_batch, 2)
