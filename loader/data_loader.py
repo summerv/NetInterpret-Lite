@@ -85,6 +85,7 @@ class SegmentationData(AbstractSegmentation):
         directory = os.path.expanduser(directory)
         self.directory = directory
         with open(os.path.join(directory, settings.INDEX_FILE)) as f:
+            # decoded index.csv into maps, like [{image:'xx', scene:[2, 81], ...}]
             self.image = [decode_index_dict(r) for r in csv.DictReader(f)]
         with open(os.path.join(directory, 'category.csv')) as f:
             self.category = OrderedDict()
@@ -94,12 +95,18 @@ class SegmentationData(AbstractSegmentation):
         categories = self.category.keys()
         with open(os.path.join(directory, 'label.csv')) as f:
             label_data = [decode_label_dict(r) for r in csv.DictReader(f)]
+        # create array using number as index
         self.label = build_dense_label_array(label_data)
+
         # Filter out images with insufficient data
         filter_fn = partial(
                 index_has_all_data if require_all else index_has_any_data,
                 categories=categories)
+
+        # if require_all: images with all categories non-empty are included,
+        # else not require_all: images with any category non-empty are included.
         self.image = [row for row in self.image if filter_fn(row)]
+
         # Build dense remapping arrays for labels, so that you can
         # get dense ranges of labels for each category.
         self.category_map = {}
@@ -355,9 +362,11 @@ def build_dense_label_array(label_data, key='number', allow_none=False):
     Input: set of rows with 'number' fields (or another field name key).
     Output: array such that a[number] = the row with the given number.
     '''
+
+    # result: [None] * size(label_data)
     result = [None] * (max([d[key] for d in label_data]) + 1)
     for d in label_data:
-        result[d[key]] = d
+        result[d[key]] = d    # e.g. result[31] = {number:31, name='road', category='x', ...}
     # Fill in none
     if not allow_none:
         example = label_data[0]
@@ -385,42 +394,53 @@ def decode_label_dict(row):
     result = {}
     for key, val in row.items():
         if key == 'category':
+            # 'object(4546); part(452)' -> result['category'] = {object:4546, part:452}
             result[key] = dict((c, int(n))
                 for c, n in [re.match('^([^(]*)\(([^)]*)\)$', f).groups()
                     for f in val.split(';')])
         elif key == 'name':
+            # result['name'] = 'plant'
             result[key] = val
         elif key == 'syns':
+            # 'flora;plant life' -> result['syns'] = ['flora', plant life']
             result[key] = val.split(';')
         elif re.match('^\d+$', val):
+            # result['frequency'] = 4998
             result[key] = int(val)
         elif re.match('^\d+\.\d*$', val):
+            # result['coverage'] = 304.198798
             result[key] = float(val)
         else:
+            # result['number'] = 35
             result[key] = val
     return result
 
 def decode_index_dict(row):
     result = {}
     for key, val in row.items():
+        # 'image': image_name, 'split': train/test
         if key in ['image', 'split']:
             result[key] = val
+        # e.g. iw=ih=224, sw=sh=112
         elif key in ['sw', 'sh', 'iw', 'ih']:
             result[key] = int(val)
         else:
             item = [s for s in val.split(';') if s]
             for i, v in enumerate(item):
-                if re.match('^\d+$', v):
+                if re.match('^\d+$', v):    # all the char are digits, scene and texture
                     item[i] = int(v)
-            result[key] = item
+            result[key] = item              # e.g. result['texture'] = [83, 101],
+                                            # e.g. result['object'] = ['ade20k/ADE_train_00003891_object.png']
     return result
 
+# if there is any row[x] != None, return True, where x included in categories; else False
 def index_has_any_data(row, categories):
     for c in categories:
         for data in row[c]:
             if data: return True
     return False
 
+# if there all the row[x] != None, return True, where x included in categories; else False
 def index_has_all_data(row, categories):
     for c in categories:
         cat_has = False
