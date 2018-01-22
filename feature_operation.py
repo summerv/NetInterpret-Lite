@@ -35,7 +35,7 @@ class FeatureOperator:
 
         if memmap:
             skip = True
-            mmap_files = [os.path.join(settings.OUTPUT_FOLDER, "%s.mmap" % feature_name)  for feature_name in  settings.FEATURE_NAMES]
+            mmap_files = [os.path.join(settings.OUTPUT_FOLDER, "%s.mmap" % feature_name)  for feature_name in settings.FEATURE_NAMES]
             mmap_max_files = [os.path.join(settings.OUTPUT_FOLDER, "%s_max.mmap" % feature_name) for feature_name in settings.FEATURE_NAMES]
             if os.path.exists(features_size_file):
                 features_size = np.load(features_size_file)
@@ -54,7 +54,12 @@ class FeatureOperator:
 
         num_batches = (len(loader.indexes) + loader.batch_size - 1) / loader.batch_size
         for batch_idx,batch in enumerate(loader.tensor_batches(bgr_mean=self.mean)):
+            # features_blobs is a cache for extracted features,
+            # features_blobs.shape[0] == len(batch[0]) == the number of images in a batch == BATCH_SIZE,
+            # features_blobs.shape[1:] -> e.g. (512, 7, 7) ->
+            # (size of feature maps in the given layer, featuremap size, featuremap size).
             del features_blobs[:]
+
             input = batch[0]
             batch_size = len(input)
             print('extracting feature from batch %d / %d' % (batch_idx+1, num_batches))
@@ -62,15 +67,17 @@ class FeatureOperator:
             input.div_(255.0 * 0.224)
             if settings.GPU:
                 input = input.cuda()
-            input_var = V(input,volatile=True)
-            logit = model.forward(input_var)
+            input_var = V(input,volatile=True)    # input_var.shape can be like(len(images in batch[0]), 3, 224, 224)
+            logit = model.forward(input_var)      # input_var.shape can be like(len(images in batch[0]), 365#classes#)
             while np.isnan(logit.data.max()):
-                print("nan") #which I have no idea why it will happen
+                print("nan")    # which I have no idea why it will happen
                 del features_blobs[:]
                 logit = model.forward(input_var)
             if maxfeatures[0] is None:
                 # initialize the feature variable
                 for i, feat_batch in enumerate(features_blobs):
+                    # maxfeatures[i] only records the max value in the feature maps in the i-th layer
+                    # e.g. maxfeatures[i].shape = (63305, 512), where one image has 512 feature maps in layer4
                     size_features = (len(loader.indexes), feat_batch.shape[1])
                     if memmap:
                         maxfeatures[i] = np.memmap(mmap_max_files[i],dtype=float,mode='w+',shape=size_features)
@@ -78,7 +85,8 @@ class FeatureOperator:
                         maxfeatures[i] = np.zeros(size_features)
             if len(feat_batch.shape) == 4 and wholefeatures[0] is None:
                 # initialize the feature variable
-                for i, feat_batch in enumerate(features_blobs):
+                for i, feat_batch in enumerate(features_blobs):# maxfeatures[i] only records the max value in the feature maps in the i-th layer
+                    # e.g. wholefeatures[i].shape = (63305, 512, 7, 7)
                     size_features = (
                     len(loader.indexes), feat_batch.shape[1], feat_batch.shape[2], feat_batch.shape[3])
                     features_size[i] = size_features
@@ -92,6 +100,8 @@ class FeatureOperator:
             for i, feat_batch in enumerate(features_blobs):
                 if len(feat_batch.shape) == 4:
                     wholefeatures[i][start_idx:end_idx] = feat_batch
+                    # np.max(x, i) means get the max number in the i-th index of x and return a list
+                    # x = [[1,5,3],[4,2,6]], np.max(x,0) == [1,2,3]
                     maxfeatures[i][start_idx:end_idx] = np.max(np.max(feat_batch,3),2)
                 elif len(feat_batch.shape) == 3:
                     maxfeatures[i][start_idx:end_idx] = np.max(feat_batch, 2)
