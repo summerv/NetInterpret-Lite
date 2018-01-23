@@ -21,5 +21,6 @@ def loadmodel(hook_fn):
         model._modules.get(name).register_forward_hook(hook_fn)
     if settings.GPU:
         model.cuda()
+    # print(model)
     model.eval()
     return model
