@@ -12,6 +12,8 @@ features, maxfeature = fo.feature_extraction(model=model)
 
 for layer_id, layer in enumerate(settings.FEATURE_NAMES):
     ############ STEP 2: calculating threshold ############
+    # thresholds.shape = (512,), where 512 is the number of layer-4 feature maps
+    # calculating the threshold for each feature map in the layer-4
     thresholds = fo.quantile_threshold(features[layer_id], savepath="quantile.npy")
 
     ############ STEP 3: calculating IoU scores ###########

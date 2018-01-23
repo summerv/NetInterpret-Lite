@@ -85,8 +85,9 @@ class FeatureOperator:
                         maxfeatures[i] = np.zeros(size_features)
             if len(feat_batch.shape) == 4 and wholefeatures[0] is None:
                 # initialize the feature variable
-                for i, feat_batch in enumerate(features_blobs):# maxfeatures[i] only records the max value in the feature maps in the i-th layer
+                for i, feat_batch in enumerate(features_blobs):
                     # e.g. wholefeatures[i].shape = (63305, 512, 7, 7)
+                    # There are 63305 IMAGES in index.csv in total!!!
                     size_features = (
                     len(loader.indexes), feat_batch.shape[1], feat_batch.shape[2], feat_batch.shape[3])
                     features_size[i] = size_features
@@ -109,13 +110,20 @@ class FeatureOperator:
                     maxfeatures[i][start_idx:end_idx] = feat_batch
         if len(feat_batch.shape) == 2:
             wholefeatures = maxfeatures
+
+        # for resnet18_place365_layer4:
+        # wholefeatures[0].shape = (63305, 512, 7, 7)
+        # maxfeatures[0].shape = (63305, 512)
         return wholefeatures,maxfeatures
 
     def quantile_threshold(self, features, savepath=''):
+        # For resnet18_place365, layer=['layer4']:
+        # features.shape = (63305, 512, 7, 7)
         qtpath = os.path.join(settings.OUTPUT_FOLDER, savepath)
         if savepath and os.path.exists(qtpath):
             return np.load(qtpath)
         print("calculating quantile threshold")
+        # quant.shape = (512, 24576)
         quant = vecquantile.QuantileVector(depth=features.shape[1], seed=1)
         start_time = time.time()
         last_batch_time = start_time
@@ -127,9 +135,13 @@ class FeatureOperator:
             last_batch_time = batch_time
             print('Processing quantile index %d: %f %f' % (i, rate, batch_rate))
             batch = features[i:i + batch_size]
+
+            # features.shape[1] == 512
+            # batch.shape = (batch.size * 7 * 7, 512)
             batch = np.transpose(batch, axes=(0, 2, 3, 1)).reshape(-1, features.shape[1])
             quant.add(batch)
         ret = quant.readout(1000)[:, int(1000 * (1-settings.QUANTILE)-1)]
+        print(ret.shape)
         if savepath:
             np.save(qtpath, ret)
         return ret
