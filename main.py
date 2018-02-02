@@ -7,11 +7,11 @@ from util.clean import clean
 fo = FeatureOperator()
 model = loadmodel(hook_feature)
 
-############ STEP 1: feature extraction ###############
+############ STEP main.py:91: feature extraction ###############
 features, maxfeature = fo.feature_extraction(model=model)
 
 for layer_id, layer in enumerate(settings.FEATURE_NAMES):
-    ############ STEP 2: calculating threshold ############
+    ############ 32STEP 2: calculating threshold ############
     # thresholds.shape = (512,), where 512 is the number of layer-4 feature maps
     # calculating the threshold for each feature map in the layer-4
     thresholds = fo.quantile_threshold(features[layer_id], savepath="quantile.npy")

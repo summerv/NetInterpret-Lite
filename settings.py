@@ -1,5 +1,5 @@
 ######### global settings  #########
-GPU = True                                  # running on GPU is highly suggested
+GPU = False                                 # running on GPU is highly suggested
 TEST_MODE = False                           # turning on the testmode means the code will run on a small dataset.
 CLEAN = True                                # set to "True" if you want to clean the temporary large files after generating result
 MODEL = 'resnet18'                          # model arch: resnet18, alexnet, resnet50, densenet161
@@ -38,7 +38,7 @@ elif DATASET == 'imagenet':
     NUM_CLASSES = 1000
 
 if MODEL == 'resnet18':
-    FEATURE_NAMES = ['layer2']   # 'layer4'
+    FEATURE_NAMES = ['layer4']   # 'layer4'
     if DATASET == 'places365':
         MODEL_FILE = 'zoo/resnet18_places365.pth.tar'
         MODEL_PARALLEL = True

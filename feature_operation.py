@@ -22,8 +22,8 @@ class FeatureOperator:
         if not os.path.exists(settings.OUTPUT_FOLDER):
             os.makedirs(os.path.join(settings.OUTPUT_FOLDER, 'image'))
         self.data = SegmentationData(settings.DATA_DIRECTORY, categories=settings.CATAGORIES)
-        self.loader = SegmentationPrefetcher(self.data,categories=['image'],once=True,batch_size=settings.BATCH_SIZE)
-        self.mean = [109.5388,118.6897,124.6901]
+        self.loader = SegmentationPrefetcher(self.data, categories=['image'], once=True, batch_size=settings.BATCH_SIZE)
+        self.mean = [109.5388, 118.6897, 124.6901]
 
     def feature_extraction(self, model=None, memmap=True):
         loader = self.loader
@@ -53,7 +53,7 @@ class FeatureOperator:
                 return wholefeatures, maxfeatures
 
         num_batches = (len(loader.indexes) + loader.batch_size - 1) / loader.batch_size
-        for batch_idx,batch in enumerate(loader.tensor_batches(bgr_mean=self.mean)):
+        for batch_idx, batch in enumerate(loader.tensor_batches(bgr_mean=self.mean)):
             # features_blobs is a cache for extracted features,
             # features_blobs.shape[0] == len(batch[0]) == the number of images in a batch == BATCH_SIZE,
             # features_blobs.shape[1:] -> e.g. (512, 7, 7) ->
@@ -149,13 +149,16 @@ class FeatureOperator:
 
     @staticmethod
     def tally_job(args):
+        # start = 0, end = self.data.size(), or the number of lines in 'index.csv'
         features, data, threshold, tally_labels, tally_units, tally_units_cat, tally_both, start, end = args
         units = features.shape[1]
+        # e.g. IMG_SIZE = 224
+        # size_RF = (32, 32), is the size of the receptive field
         size_RF = (settings.IMG_SIZE / features.shape[2], settings.IMG_SIZE / features.shape[3])
         fieldmap = ((0, 0), size_RF, size_RF)
         pd = SegmentationPrefetcher(data, categories=data.category_names(),
-                                    once=True, batch_size=settings.TALLY_BATCH_SIZE,
-                                    ahead=settings.TALLY_AHEAD, start=start, end=end)
+                                    once=True, batch_size=settings.TALLY_BATCH_SIZE,     # TALLY_BATCH_SIZE = 16
+                                    ahead=settings.TALLY_AHEAD, start=start, end=end)    # TALLY_AHEAD = 4
         count = start
         start_time = time.time()
         last_batch_time = start_time
@@ -177,54 +180,58 @@ class FeatureOperator:
                     if len(shape) % 2 == 0:
                         label_group = [label_group]
                     if len(shape) < 2:
-                        scalars += label_group
-                    else:
-                        pixels.append(label_group)
+                        scalars += label_group          # add scene / texture into scalars
+                    else:                               # color / part / object
+                        pixels.append(label_group)      # multiple (1,112,112)
                 for scalar in scalars:
                     tally_labels[scalar] += concept_map['sh'] * concept_map['sw']
                 if pixels:
-                    pixels = np.concatenate(pixels)
-                    tally_label = np.bincount(pixels.ravel())
-                    if len(tally_label) > 0:
-                        tally_label[0] = 0
+                    pixels = np.concatenate(pixels)  # np.bincount(x).shape = (max(x)+1,), np.bincount[i] means the time of the appearance of i in x
+                    tally_label = np.bincount(pixels.ravel())# x = np.array([0, 1, 1, 3, 2, 1, 7]), np.bincount(x) = array([1, 3, 1, 1, 0, 0, 0, 1])
+                    if len(tally_label) > 0:    # label i appears for tally_label[i] times
+                        tally_label[0] = 0      # label's index starts from 1, so 0 is meaningless
                     tally_labels[:len(tally_label)] += tally_label
 
                 for unit_id in range(units):
                     feature_map = features[img_index][unit_id]
                     if feature_map.max() > threshold[unit_id]:
                         mask = imresize(feature_map, (concept_map['sh'], concept_map['sw']), mode='F')
-                        #reduction = int(round(settings.IMG_SIZE / float(concept_map['sh'])))
-                        #mask = upsample.upsampleL(fieldmap, feature_map, shape=(concept_map['sh'], concept_map['sw']), reduction=reduction)
-                        indexes = np.argwhere(mask > threshold[unit_id])
+                        # reduction = int(round(settings.IMG_SIZE / float(concept_map['sh'])))
+                        # mask = upsample.upsampleL(fieldmap, feature_map, shape=(concept_map['sh'], concept_map['sw']), reduction=reduction)
+                        indexes = np.argwhere(mask > threshold[unit_id])     # e.g. indexes.shape = (812, 2), indexes.shape[0]=the number of pixels whose value > thresh
 
-                        tally_units[unit_id] += len(indexes)
+                        tally_units[unit_id] += len(indexes) # tally_units records the number of mask(featuremap) whose value > threshold[unit_id]
                         if len(pixels) > 0:
-                            tally_bt = np.bincount(pixels[:, indexes[:, 0], indexes[:, 1]].ravel())
+                            tally_bt = np.bincount(pixels[:, indexes[:, 0], indexes[:, 1]].ravel())  # pixels filter using mask
                             if len(tally_bt) > 0:
                                 tally_bt[0] = 0
-                            tally_cat = np.dot(tally_bt[None,:], data.labelcat[:len(tally_bt), :])[0]
-                            tally_both[unit_id,:len(tally_bt)] += tally_bt
+                            tally_cat = np.dot(tally_bt[None, :], data.labelcat[:len(tally_bt), :])[0]  # shape = (5,), tally_cat[i] means how many pixels are related to cat i
+                            tally_both[unit_id, :len(tally_bt)] += tally_bt     # tally_both[i][j]: there are tally_both[i][j] pixels related to label-j in unit-i
                         for scalar in scalars:
-                            tally_cat += data.labelcat[scalar]
-                            tally_both[unit_id, scalar] += len(indexes)
-                        tally_units_cat[unit_id] += len(indexes) * (tally_cat > 0)
+                            tally_cat += data.labelcat[scalar]                  # add scene/texture to tally_cat
+                            tally_both[unit_id, scalar] += len(indexes)         # add scene/texture to tally_both
+                        tally_units_cat[unit_id] += len(indexes) * (tally_cat > 0)    # tally_units_cat[i][j](0<=j<=4) is the number of related pixels to cat-j in unit-i
 
 
     def tally(self, features, threshold, savepath=''):
+        # For resnet18_place365, layer = ['layer4']:
+        # features.shape = (63305, 512, 7, 7)
+        # threshold.shape = (512,)
+        # savepath = 'tally.csv'
         csvpath = os.path.join(settings.OUTPUT_FOLDER, savepath)
         if savepath and os.path.exists(csvpath):
             return load_csv(csvpath)
 
-        units = features.shape[1]
-        labels = len(self.data.label)
-        categories = self.data.category_names()
-        tally_both = np.zeros((units,labels),dtype=np.float64)
-        tally_units = np.zeros(units,dtype=np.float64)
-        tally_units_cat = np.zeros((units,len(categories)), dtype=np.float64)
-        tally_labels = np.zeros(labels,dtype=np.float64)
+        units = features.shape[1]                                                # number of the feature maps, e.g. 512
+        labels = len(self.data.label)                                            # e.g. 1198
+        categories = self.data.category_names()                                  # ['materials', 'texture', 'part'...]
+        tally_both = np.zeros((units, labels), dtype=np.float64)                 # (512,1198)
+        tally_units = np.zeros(units, dtype=np.float64)                          # (512,)
+        tally_units_cat = np.zeros((units, len(categories)), dtype=np.float64)   # (512,5)
+        tally_labels = np.zeros(labels, dtype=np.float64)                        # (1198,)
 
         if settings.PARALLEL > 1:
-            psize = int(np.ceil(float(self.data.size()) / settings.PARALLEL))
+            psize = int(np.ceil(float(self. data.size()) / settings.PARALLEL))
             ranges = [(s, min(self.data.size(), s + psize)) for s in range(0, self.data.size(), psize) if
                       s < self.data.size()]
             params = [(features, self.data, threshold, tally_labels, tally_units, tally_units_cat, tally_both) + r for r in ranges]
@@ -233,9 +240,9 @@ class FeatureOperator:
         else:
             FeatureOperator.tally_job((features, self.data, threshold, tally_labels, tally_units, tally_units_cat, tally_both, 0, self.data.size()))
 
-        primary_categories = self.data.primary_categories_per_index()
-        tally_units_cat = np.dot(tally_units_cat, self.data.labelcat.T)
-        iou = tally_both / (tally_units_cat + tally_labels[np.newaxis,:] - tally_both + 1e-10)
+        primary_categories = self.data.primary_categories_per_index()            # array.shape=(1198,), primary cat for each label
+        tally_units_cat = np.dot(tally_units_cat, self.data.labelcat.T)          # shape(512,1198), tally_units_cat[i][j], how many pixels are related to label-j(or the cat which label-j belong to) in unit-i
+        iou = tally_both / (tally_units_cat + tally_labels[np.newaxis, :] - tally_both + 1e-10)    # shape(512,1198)???
         pciou = np.array([iou * (primary_categories[np.arange(iou.shape[1])] == ci)[np.newaxis, :] for ci in range(len(self.data.category_names()))])
         label_pciou = pciou.argmax(axis=2)
         name_pciou = [
@@ -243,13 +250,13 @@ class FeatureOperator:
             for ci in range(len(label_pciou))]
         score_pciou = pciou[
             np.arange(pciou.shape[0])[:, np.newaxis],
-            np.arange(pciou.shape[1])[np.newaxis, :],
+            np.arange(pciou.shape                   [1])[np.newaxis, :],
             label_pciou]
         bestcat_pciou = score_pciou.argsort(axis=0)[::-1]
         ordering = score_pciou.max(axis=0).argsort()[::-1]
         rets = [None] * len(ordering)
 
-        for i,unit in enumerate(ordering):
+        for i, unit in enumerate(ordering):
             # Top images are top[unit]
             bestcat = bestcat_pciou[0, unit]
             data = {

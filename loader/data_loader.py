@@ -109,9 +109,9 @@ class SegmentationData(AbstractSegmentation):
 
         # Build dense remapping arrays for labels, so that you can
         # get dense ranges of labels for each category.
-        self.category_map = {}
-        self.category_unmap = {}
-        self.category_label = {}
+        self.category_map = {}     # category_map[cat] = <list>, category_map[cat][number.value] = key.value
+        self.category_unmap = {}   # category_unmap[cat] = <list>, category_map[cat][key.value] = number.value
+        self.category_label = {}   # category_label[cat] = <list>[{},{}...], <list> is an array such that a[code] = the row with the given code(in a map).
         for cat in self.category:
             with open(os.path.join(directory, 'c_%s.csv' % cat)) as f:
                 c_data = [decode_label_dict(r) for r in csv.DictReader(f)]
@@ -124,19 +124,21 @@ class SegmentationData(AbstractSegmentation):
 
     def primary_categories_per_index(ds):
         '''
-        Returns an array of primary category numbers for each label, where the
-        first category listed in ds.category_names is given category number 0.
+        Returns an array of primary category(the most possible category, with
+        highest coverage) numbers for each label, where the first category
+        listed in ds.category_names is given category number 0.
         '''
         catmap = {}
         categories = ds.category_names()
         for cat in categories:
-            imap = ds.category_index_map(cat)
+            imap = ds.category_index_map(cat)  # imap is a list, imap[number.value] = key.value
             if len(imap) < ds.label_size(None):
                 imap = np.concatenate((imap, np.zeros(
                     ds.label_size(None) - len(imap), dtype=imap.dtype)))
             catmap[cat] = imap
         result = []
         for i in range(ds.label_size(None)):
+            # tally the max coverage of label[i] of all categories and the corresponding cat index(start from 0)
             maxcov, maxcat = max(
                 (ds.coverage(cat, catmap[cat][i]) if catmap[cat][i] else 0, ic)
                 for ic, cat in enumerate(categories))
@@ -148,7 +150,7 @@ class SegmentationData(AbstractSegmentation):
         Expands an array of integers in one-hot encoding by adding a new last
         dimension, leaving zeros everywhere except for the nth dimension, where
         the original array contained the integer n.  The minlength parameter is
-        used to indcate the minimum size of the new dimension.
+        used to indicate the minimum size of the new dimension.
         '''
         length = np.amax(arr) + 1
         if minlength is not None:
@@ -347,7 +349,7 @@ class SegmentationData(AbstractSegmentation):
                 else:
                     png = imread(
                             os.path.join(self.directory, 'images', channel))
-                    out[i] = png[:,:,0] + png[:,:,1] * 256
+                    out[i] = png[:, :, 0] + png[:, :, 1] * 256
                 i += 1
                 if i == depth:
                     return out
@@ -356,6 +358,7 @@ class SegmentationData(AbstractSegmentation):
 
     def category_index_map(self, category):
         return numpy.array(self.category_map[category])
+
 
 def build_dense_label_array(label_data, key='number', allow_none=False):
     '''
@@ -383,10 +386,16 @@ def build_numpy_category_map(map_data, key1='code', key2='number'):
     Input: set of rows with 'number' fields (or another field name key).
     Output: array such that a[number] = the row with the given number.
     '''
+    '''
+    Paras:
+    @@map_data@@: map{} extracted from 'c_%s.csv' % category, map.keys()=[code, number, name, frequency, coverage].
+    @@key1='code'@@: dense coding that can be used for a specific subcategory of labels.
+    @@key2='number'@@: coding that uses for label.csv (for all the categories)
+    '''
     results = list(numpy.zeros((max([d[key] for d in map_data]) + 1),
             dtype=numpy.int16) for key in (key1, key2))
     for d in map_data:
-        results[0][d[key1]] = d[key2]
+        results[0][d[key1]] = d[key2]     # results[0][code.value] = number.value
         results[1][d[key2]] = d[key1]
     return results
 
