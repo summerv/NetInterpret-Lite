@@ -34,11 +34,14 @@ def generate_html_summary(ds, layer, maxfeature=None, features=None, thresholds=
         print('Sorting units by score.')
     if imsize is None:
         imsize = settings.IMG_SIZE
+
+    # top.shape = (512, 10), only choose the indexes of the top 10
+    # featuremaps for each unit to display, which have highest maxfeature
     top = np.argsort(maxfeature, 0)[:-1 - settings.TOPN:-1, :].transpose()
-    ed.ensure_dir('html','image')
+    ed.ensure_dir('html', 'image')
     html = [html_prefix]
     rendered_order = []
-    barfn = 'image/%s-bargraph.svg' % (
+    barfn = 'image/%s-bargraph.svg' % (   # e.g. "image/layer4-bargraph.svg"
             expdir.fn_safe(layer))
     bargraph.bar_graph_svg(ed, layer,
                            tally_result=tally_result,
@@ -52,7 +55,7 @@ def generate_html_summary(ds, layer, maxfeature=None, features=None, thresholds=
         ])
     html.append('<div class="gridheader">')
     html.append('<div class="layerinfo">')
-    html.append('%d/%d units covering %d concepts with IoU &ge; %.2f' % (
+    html.append('%d/%d units covering %d concepts with IoU &ge; %.3f' % (
         len([record for record in rendered_order
             if float(record['score']) >= settings.SCORE_THRESHOLD]),
         len(rendered_order),
@@ -77,23 +80,30 @@ def generate_html_summary(ds, layer, maxfeature=None, features=None, thresholds=
     for i, record in enumerate(
             sorted(rendered_order, key=lambda record: -float(record['score']))):
         record['score-order'] = i
+
+    # generate image files from all the lines in 'tally.csv'
     for label_order, record in enumerate(rendered_order):
-        unit = int(record['unit']) - 1 # zero-based unit indexing
+        unit = int(record['unit']) - 1      # zero-based unit indexing
         imfn = 'image/%s%s-%04d.jpg' % (
                 expdir.fn_safe(layer), gridname, unit)
+        nonzerocnt = []
+        showimagefn = []
         if force or not ed.has('html/%s' % imfn):
             if verbose:
                 print('Visualizing %s unit %d' % (layer, unit))
             # Generate the top-patch image
-            tiled = numpy.full(
+            tiled = numpy.full(     # tiled.shape = (224, 2267, 3), tiled[i] == 255
                 ((imsize + gap) * gridheight - gap,
                  (imsize + gap) * gridwidth - gap, 3), 255, dtype='uint8')
             for x, index in enumerate(top[unit]):
                 row = x // gridwidth
                 col = x % gridwidth
-                image = imread(ds.filename(index))
+                imagefn = ds.filename(index)
+                showimagefn.append(imagefn)
+                image = imread(imagefn)
                 mask = imresize(features[index][unit], image.shape[:2], mode='F')
                 mask = mask > thresholds[unit]
+                nonzerocnt.append(numpy.count_nonzero(mask))
                 vis = (mask[:, :, numpy.newaxis] * 0.8 + 0.2) * image
                 if vis.shape[:2] != (imsize, imsize):
                     vis = imresize(vis, (imsize, imsize))
@@ -109,16 +119,27 @@ def generate_html_summary(ds, layer, maxfeature=None, features=None, thresholds=
             '<span class="layername">%s</span> ' % layer +
             '<span class="unitnum">unit %d</span> ' % (unit + 1) +
             '<span class="category">(%s)</span> ' % record['category'] +
-            '<span class="iou">IoU %.2f</span>' % float(record['score']) +
+            '<span class="iou">IoU %.3f</span>' % float(record['score']) +
             '</div>')
+
+        if settings.AddImgFileName:
+            # add top 10 images' file name
+            for i in range(len(showimagefn)):
+                html.append('<div class="subimginfo"><span class="imagefn">%s</span> </div>' % showimagefn[i])
+
+        # for i in range(len(showimagefn)):
+        #     html.append('<div class="activepixelcnt"><span class="activepixelcnt">%s;</span> </div>' % nonzerocnt[i])
+
         html.append(
             '<div class="thumbcrop"><img src="%s" height="%d"></div>' %
             (imfn, imscale))
-        html.append('</div') # Leave off > to eat spaces
+        html.append('</div')        # Leave off > to eat spaces
     html.append('></div>')
-    html.extend([html_suffix]);
+    html.extend([html_suffix])
     with open(ed.filename('html/%s.html' % expdir.fn_safe(layer)), 'w') as f:
         f.write('\n'.join(html))
+
+    return rendered_order
 
 html_prefix = '''
 <!doctype html>

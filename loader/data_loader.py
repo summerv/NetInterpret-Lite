@@ -85,7 +85,7 @@ class SegmentationData(AbstractSegmentation):
         directory = os.path.expanduser(directory)
         self.directory = directory
         with open(os.path.join(directory, settings.INDEX_FILE)) as f:
-            # decoded index.csv into maps, like [{image:'xx', scene:[2, 81], ...}]
+            # decoded index.csv into maps, like [{image:'file/path', scene:[2, 81], ...}]
             self.image = [decode_index_dict(r) for r in csv.DictReader(f)]
         with open(os.path.join(directory, 'category.csv')) as f:
             self.category = OrderedDict()
@@ -109,8 +109,8 @@ class SegmentationData(AbstractSegmentation):
 
         # Build dense remapping arrays for labels, so that you can
         # get dense ranges of labels for each category.
-        self.category_map = {}     # category_map[cat] = <list>, category_map[cat][number.value] = key.value
-        self.category_unmap = {}   # category_unmap[cat] = <list>, category_map[cat][key.value] = number.value
+        self.category_map = {}     # category_map[cat] = <list>, category_map[cat][number.value] = code.value
+        self.category_unmap = {}   # category_unmap[cat] = <list>, category_map[cat][code.value] = number.value
         self.category_label = {}   # category_label[cat] = <list>[{},{}...], <list> is an array such that a[code] = the row with the given code(in a map).
         for cat in self.category:
             with open(os.path.join(directory, 'c_%s.csv' % cat)) as f:
@@ -121,6 +121,10 @@ class SegmentationData(AbstractSegmentation):
                     c_data, key='code')
 
         self.labelcat = self.onehot(self.primary_categories_per_index())
+
+        self.fnidxmap = {}        # map:{file path : idx}
+        for i, m in enumerate(self.image):
+            self.fnidxmap[m['image']] = i
 
     def primary_categories_per_index(ds):
         '''

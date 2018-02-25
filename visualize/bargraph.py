@@ -46,10 +46,10 @@ def bar_graph_svg(ed, blob,tally_result=None,
                     save=None):
     # ['unit', 'category', 'label', 'score']
     # Examine each label
-    label_cats = {}
-    label_score = {}
+    label_cats = {}     # e.g. {'car':[object,object], 'train':[object,object,object]}
+    label_score = {}    # label_score[label] stores the highest 'score' of 'label'
     for record in tally_result:
-        if float(record['score']) < threshold:
+        if float(record['score']) < threshold:  # select the record whose 'score' > thresh
             continue
         label = record['label']
         if label not in label_cats:
@@ -59,15 +59,15 @@ def bar_graph_svg(ed, blob,tally_result=None,
                 or label_score[label] < float(record['score'])):
             label_score[label] = float(record['score'])
     # Count each label, and note its cateogry
-    label_counts = {}
+    label_counts = {}    # e.g. {'car':4, 'train':3}, how many time the label appears in all the units
     for label, cats in label_cats.items():
         label_counts[label] = len(cats)
-        label_cats[label] = most_common(cats)
+        label_cats[label] = most_common(cats)  # label_cats: {'car':[object,object]} => {'car':'object'}
     # Sort labels by frequency and max score
-    sorted_labels = sorted(label_counts.keys(),
+    sorted_labels = sorted(label_counts.keys(),   # sort by label_counts[x] and label_score[x] desc
             key=lambda x: (-label_counts[x], -label_score[x]))
-    category_order = order
-    if not category_order:
+    category_order = order   # <class 'list'>: ['object', 'scene', 'part', 'material', 'texture', 'color']
+    if not category_order:   # if category_order == None
         # Default category order: broden order plus any missing categories
         category_order = list(default_category_order)
         for label in sorted_labels:
@@ -82,10 +82,10 @@ def bar_graph_svg(ed, blob,tally_result=None,
         filtered = [label for label in sorted_labels
             if label_cats[label] == cat]
         labels.extend(filtered)
-        heights.extend([label_counts[label] for label in filtered])
+        heights.extend([label_counts[label] for label in filtered])     # the height in the layer4-bargraph.svg is label_counts[label]
         categories.append((cat, len(filtered)))
     # Sort records in histogram order and output them if requested
-    if rendered_order is not None:
+    if rendered_order is not None:                                      # rendered_order.__len__ == 512
         rendered_order.extend(sorted(tally_result, key=lambda record: (
             # Items below score threshold are sorted last, by score
             (len(category_order), 0, 0, -float(record['score']))

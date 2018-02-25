@@ -23,6 +23,7 @@ class FeatureOperator:
             os.makedirs(os.path.join(settings.OUTPUT_FOLDER, 'image'))
         self.data = SegmentationData(settings.DATA_DIRECTORY, categories=settings.CATAGORIES)
         self.loader = SegmentationPrefetcher(self.data, categories=['image'], once=True, batch_size=settings.BATCH_SIZE)
+
         self.mean = [109.5388, 118.6897, 124.6901]
 
     def feature_extraction(self, model=None, memmap=True):
@@ -35,7 +36,7 @@ class FeatureOperator:
 
         if memmap:
             skip = True
-            mmap_files = [os.path.join(settings.OUTPUT_FOLDER, "%s.mmap" % feature_name)  for feature_name in settings.FEATURE_NAMES]
+            mmap_files = [os.path.join(settings.OUTPUT_FOLDER, "%s.mmap" % feature_name) for feature_name in settings.FEATURE_NAMES]
             mmap_max_files = [os.path.join(settings.OUTPUT_FOLDER, "%s_max.mmap" % feature_name) for feature_name in settings.FEATURE_NAMES]
             if os.path.exists(features_size_file):
                 features_size = np.load(features_size_file)
@@ -67,10 +68,10 @@ class FeatureOperator:
             input.div_(255.0 * 0.224)
             if settings.GPU:
                 input = input.cuda()
-            input_var = V(input,volatile=True)    # input_var.shape can be like(len(images in batch[0]), 3, 224, 224)
-            logit = model.forward(input_var)      # input_var.shape can be like(len(images in batch[0]), 365#classes#)
+            input_var = V(input, volatile=True)    # input_var.shape can be like(len(images in batch[0]), 3, 224, 224)
+            logit = model.forward(input_var)       # input_var.shape can be like(len(images in batch[0]), 365#classes#)
             while np.isnan(logit.data.max()):
-                print("nan")    # which I have no idea why it will happen
+                print("nan")                       # which I have no idea why it will happen
                 del features_blobs[:]
                 logit = model.forward(input_var)
             if maxfeatures[0] is None:
@@ -186,8 +187,11 @@ class FeatureOperator:
                 for scalar in scalars:
                     tally_labels[scalar] += concept_map['sh'] * concept_map['sw']
                 if pixels:
-                    pixels = np.concatenate(pixels)  # np.bincount(x).shape = (max(x)+1,), np.bincount[i] means the time of the appearance of i in x
-                    tally_label = np.bincount(pixels.ravel())# x = np.array([0, 1, 1, 3, 2, 1, 7]), np.bincount(x) = array([1, 3, 1, 1, 0, 0, 0, 1])
+                    pixels = np.concatenate(pixels)
+
+                    # np.bincount(x).shape = (max(x)+1,), np.bincount[i] means the time of the appearance of i in x
+                    # x = np.array([0, 1, 1, 3, 2, 1, 7]), np.bincount(x) = array([1, 3, 1, 1, 0, 0, 0, 1])
+                    tally_label = np.bincount(pixels.ravel())
                     if len(tally_label) > 0:    # label i appears for tally_label[i] times
                         tally_label[0] = 0      # label's index starts from 1, so 0 is meaningless
                     tally_labels[:len(tally_label)] += tally_label
@@ -198,19 +202,29 @@ class FeatureOperator:
                         mask = imresize(feature_map, (concept_map['sh'], concept_map['sw']), mode='F')
                         # reduction = int(round(settings.IMG_SIZE / float(concept_map['sh'])))
                         # mask = upsample.upsampleL(fieldmap, feature_map, shape=(concept_map['sh'], concept_map['sw']), reduction=reduction)
-                        indexes = np.argwhere(mask > threshold[unit_id])     # e.g. indexes.shape = (812, 2), indexes.shape[0]=the number of pixels whose value > thresh
 
-                        tally_units[unit_id] += len(indexes) # tally_units records the number of mask(featuremap) whose value > threshold[unit_id]
+                        # e.g. indexes.shape = (812, 2), indexes.shape[0]=the number of pixels whose value > thresh
+                        indexes = np.argwhere(mask > threshold[unit_id])
+
+                        # tally_units records the number of mask(featuremap) whose value > threshold[unit_id]
+                        tally_units[unit_id] += len(indexes)
                         if len(pixels) > 0:
-                            tally_bt = np.bincount(pixels[:, indexes[:, 0], indexes[:, 1]].ravel())  # pixels filter using mask
+                            # pixels filter using mask
+                            tally_bt = np.bincount(pixels[:, indexes[:, 0], indexes[:, 1]].ravel())
                             if len(tally_bt) > 0:
                                 tally_bt[0] = 0
-                            tally_cat = np.dot(tally_bt[None, :], data.labelcat[:len(tally_bt), :])[0]  # shape = (5,), tally_cat[i] means how many pixels are related to cat i
-                            tally_both[unit_id, :len(tally_bt)] += tally_bt     # tally_both[i][j]: there are tally_both[i][j] pixels related to label-j in unit-i
+
+                            # shape = (5,), tally_cat[i] means how many pixels are related to cat i
+                            tally_cat = np.dot(tally_bt[None, :], data.labelcat[:len(tally_bt), :])[0]
+
+                            # tally_both[i][j]: there are tally_both[i][j] pixels related to label-j in unit-i
+                            tally_both[unit_id, :len(tally_bt)] += tally_bt
                         for scalar in scalars:
-                            tally_cat += data.labelcat[scalar]                  # add scene/texture to tally_cat
-                            tally_both[unit_id, scalar] += len(indexes)         # add scene/texture to tally_both
-                        tally_units_cat[unit_id] += len(indexes) * (tally_cat > 0)    # tally_units_cat[i][j](0<=j<=4) is the number of related pixels to cat-j in unit-i
+                            tally_cat += data.labelcat[scalar]                      # add scene/texture to tally_cat
+                            tally_both[unit_id, scalar] += len(indexes)             # add scene/texture to tally_both
+
+                        # tally_units_cat[i][j](0<=j<=4) is the number of related pixels to cat-j in unit-i
+                        tally_units_cat[unit_id] += len(indexes) * (tally_cat > 0)
 
 
     def tally(self, features, threshold, savepath=''):
@@ -240,8 +254,12 @@ class FeatureOperator:
         else:
             FeatureOperator.tally_job((features, self.data, threshold, tally_labels, tally_units, tally_units_cat, tally_both, 0, self.data.size()))
 
-        primary_categories = self.data.primary_categories_per_index()            # array.shape=(1198,), primary cat for each label
-        tally_units_cat = np.dot(tally_units_cat, self.data.labelcat.T)          # shape(512,1198), tally_units_cat[i][j], how many pixels are related to label-j(or the cat which label-j belong to) in unit-i
+        # array.shape=(1198,), primary cat for each label
+        primary_categories = self.data.primary_categories_per_index()
+
+        # shape(512,1198), tally_units_cat[i][j], how many pixels are related to label-j(or the cat which label-j belong to) in unit-i
+        tally_units_cat = np.dot(tally_units_cat, self.data.labelcat.T)
+
         iou = tally_both / (tally_units_cat + tally_labels[np.newaxis, :] - tally_both + 1e-10)    # shape(512,1198)???
         pciou = np.array([iou * (primary_categories[np.arange(iou.shape[1])] == ci)[np.newaxis, :] for ci in range(len(self.data.category_names()))])
         label_pciou = pciou.argmax(axis=2)
@@ -250,7 +268,7 @@ class FeatureOperator:
             for ci in range(len(label_pciou))]
         score_pciou = pciou[
             np.arange(pciou.shape[0])[:, np.newaxis],
-            np.arange(pciou.shape                   [1])[np.newaxis, :],
+            np.arange(pciou.shape[1])[np.newaxis, :],
             label_pciou]
         bestcat_pciou = score_pciou.argsort(axis=0)[::-1]
         ordering = score_pciou.max(axis=0).argsort()[::-1]
