@@ -114,7 +114,8 @@ class ReadImageAttribute:
 
 if __name__ == '__main__':
     ria = ReadImageAttribute()
-    file_name = 'ade20k/ADE_train_00004567.jpg'
+    # file_name = 'ade20k/ADE_train_00004567.jpg'
+    file_name = '../../val_256/images_224/Places365_val_00000005.jpg'
     ria.show_image(file_name)
     print(ria.get_imgage_idx(file_name))
     color = ria.get_color(file_name)

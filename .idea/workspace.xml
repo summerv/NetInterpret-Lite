@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4aea3ee0-2b9d-44ef-a5f3-fdaf768f90e0" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/activate_experiment.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/places365_val_exp.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/read_image.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/sparktest.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/NetInterpret-Lite.iml" afterPath="$PROJECT_DIR$/.idea/NetInterpret-Lite.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/feature_operation.py" afterPath="$PROJECT_DIR$/feature_operation.py" />
-      <change beforePath="$PROJECT_DIR$/loader/data_loader.py" afterPath="$PROJECT_DIR$/loader/data_loader.py" />
+      <change beforePath="$PROJECT_DIR$/activate_experiment.py" afterPath="$PROJECT_DIR$/activate_experiment.py" />
       <change beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change beforePath="$PROJECT_DIR$/settings.py" afterPath="$PROJECT_DIR$/settings.py" />
-      <change beforePath="$PROJECT_DIR$/visualize/bargraph.py" afterPath="$PROJECT_DIR$/visualize/bargraph.py" />
-      <change beforePath="$PROJECT_DIR$/visualize/report.py" afterPath="$PROJECT_DIR$/visualize/report.py" />
+      <change beforePath="$PROJECT_DIR$/places365_val_exp.py" afterPath="$PROJECT_DIR$/places365_val_exp.py" />
+      <change beforePath="$PROJECT_DIR$/read_image.py" afterPath="$PROJECT_DIR$/read_image.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,114 +18,66 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/NetInterpret_Lite$readimage.coverage" NAME="readimage Coverage Results" MODIFIED="1518534434503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NetInterpret_Lite$main.coverage" NAME="main Coverage Results" MODIFIED="1518689699617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NetInterpret_Lite$activate_experiment.coverage" NAME="activate_experiment Coverage Results" MODIFIED="1520939816413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NetInterpret_Lite$readimage.coverage" NAME="readimage Coverage Results" MODIFIED="1520941224229" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NetInterpret_Lite$main.coverage" NAME="main Coverage Results" MODIFIED="1520942586129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NetInterpret_Lite$sparktest.coverage" NAME="sparktest Coverage Results" MODIFIED="1520832551206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NetInterpret_Lite$feature_operation.coverage" NAME="feature_operation Coverage Results" MODIFIED="1517380926364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NetInterpret_Lite$read_val.coverage" NAME="read_val Coverage Results" MODIFIED="1518426493952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NetInterpret_Lite$report.coverage" NAME="report Coverage Results" MODIFIED="1518452362859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/visualize" />
     <SUITE FILE_PATH="coverage/NetInterpret_Lite$settings.coverage" NAME="settings Coverage Results" MODIFIED="1517969444233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5888889">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="30" column="81" lean-forward="true" selection-start-line="30" selection-start-column="81" selection-end-line="30" selection-end-column="81" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="places365_val_exp.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/places365_val_exp.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="423">
-                  <caret line="130" column="70" lean-forward="true" selection-start-line="130" selection-start-column="70" selection-end-line="130" selection-end-column="70" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="activate_experiment.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/activate_experiment.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/settings.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="629">
-                  <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="read_image.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/read_image.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="feature_operation.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/feature_operation.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="data_loader.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/loader/data_loader.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1241">
-                  <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#29#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="pool.py" pinned="false" current-in-tab="false">
-            <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/multiprocessing/pool.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2074">
-                  <caret line="133" column="16" lean-forward="false" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="feature_operation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/feature_operation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-102">
+              <caret line="102" column="21" lean-forward="false" selection-start-line="102" selection-start-column="21" selection-end-line="102" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="places365_val_exp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/places365_val_exp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-108">
+              <caret line="153" column="21" lean-forward="false" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activate_experiment.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/activate_experiment.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -139,8 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>span</find>
-      <find>iou</find>
       <find>layername</find>
       <find>thumbcrop</find>
       <find>SETT</find>
@@ -159,7 +106,6 @@
       <find>re.match</find>
       <find>resize</find>
       <find>imresize</find>
-      <find>features</find>
       <find>256</find>
       <find>::-1</find>
       <find>transpose</find>
@@ -168,7 +114,10 @@
       <find>OUTPUT_F</find>
       <find>feat</find>
       <find>true</find>
-      <find>true</find>
+      <find>224</find>
+      <find>img_idx</find>
+      <find>features</find>
+      <find>cat</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -185,13 +134,14 @@
         <option value="$PROJECT_DIR$/read_places365_val.py" />
         <option value="$PROJECT_DIR$/visualize/report.py" />
         <option value="$PROJECT_DIR$/visualize/bargraph.py" />
-        <option value="$PROJECT_DIR$/read_image.py" />
-        <option value="$PROJECT_DIR$/activate_experiment.py" />
         <option value="$PROJECT_DIR$/gbdt_experiment.py" />
-        <option value="$PROJECT_DIR$/feature_operation.py" />
         <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/feature_operation.py" />
+        <option value="$PROJECT_DIR$/sparktest.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/read_image.py" />
         <option value="$PROJECT_DIR$/places365_val_exp.py" />
+        <option value="$PROJECT_DIR$/activate_experiment.py" />
       </list>
     </option>
   </component>
@@ -202,9 +152,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="44" />
+    <option name="x" value="164" />
     <option name="y" value="24" />
-    <option name="width" value="1855" />
+    <option name="width" value="1756" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -223,37 +173,32 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="NetInterpret-Lite" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NetInterpret-Lite" type="462c0819:PsiDirectoryNode" />
+              <item name="NetInterpret-Lite" type="47feb1d3:ProjectViewModuleNode" />
             </path>
             <path>
               <item name="NetInterpret-Lite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NetInterpret-Lite" type="47feb1d3:ProjectViewModuleNode" />
               <item name="NetInterpret-Lite" type="462c0819:PsiDirectoryNode" />
-              <item name="visualize" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NetInterpret-Lite" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NetInterpret-Lite" type="462c0819:PsiDirectoryNode" />
-              <item name="zoo" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-    <property name="SearchEverywhereHistoryKey" value="shell&#9;null&#9;null" />
-    <property name="last_opened_file_path" value="$USER_HOME$/NetDissect" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;null&#9;null&#10;_info&#9;null&#9;null&#10;activate_info&#9;null&#9;null&#10;shell&#9;null&#9;null" />
+    <property name="last_opened_file_path" value="$USER_HOME$/spark-2.3.0-bin-hadoop2.7/python/lib/pyspark.zip!/" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
@@ -274,6 +219,25 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="activate_experiment" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="NetInterpret-Lite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/activate_experiment.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -288,25 +252,6 @@
       <module name="NetInterpret-Lite" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="read_val" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="NetInterpret-Lite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/places365_val_exp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -350,11 +295,13 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="settings" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="sparktest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="PYTHONPATH" value="$PROJECT_DIR$/../spark-2.3.0-bin-hadoop2.7/python" />
+        <env name="SPARK_PATH" value="$PROJECT_DIR$/../spark-2.3.0-bin-hadoop2.7" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -363,7 +310,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="NetInterpret-Lite" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/settings.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sparktest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -371,18 +318,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
-      <item index="1" class="java.lang.String" itemvalue="Python.settings" />
-      <item index="2" class="java.lang.String" itemvalue="Python.readimage" />
-      <item index="3" class="java.lang.String" itemvalue="Python.read_val" />
-      <item index="4" class="java.lang.String" itemvalue="Python.report" />
+      <item index="1" class="java.lang.String" itemvalue="Python.readimage" />
+      <item index="2" class="java.lang.String" itemvalue="Python.report" />
+      <item index="3" class="java.lang.String" itemvalue="Python.sparktest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.activate_experiment" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
         <item index="1" class="java.lang.String" itemvalue="Python.readimage" />
-        <item index="2" class="java.lang.String" itemvalue="Python.report" />
-        <item index="3" class="java.lang.String" itemvalue="Python.read_val" />
-        <item index="4" class="java.lang.String" itemvalue="Python.settings" />
+        <item index="2" class="java.lang.String" itemvalue="Python.activate_experiment" />
+        <item index="3" class="java.lang.String" itemvalue="Python.sparktest" />
+        <item index="4" class="java.lang.String" itemvalue="Python.report" />
       </list>
     </recent_temporary>
   </component>
@@ -403,22 +350,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="24" width="1855" height="1056" extended-state="4" />
-    <editor active="true" />
+    <frame x="164" y="24" width="1756" height="1056" extended-state="4" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35907337" sideWeight="0.50966185" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2378902" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30032292" sideWeight="0.49033818" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.07816712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06947608" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5638814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3718679" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17761034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2787944" sideWeight="0.486715" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -427,6 +373,28 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13778256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12852664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12560646" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13778256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5638814" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4061962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -464,53 +432,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/feature_operation.py</url>
-          <line>187</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/feature_operation.py</url>
-          <line>178</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/feature_operation.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/feature_operation.py</url>
           <line>226</line>
           <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/feature_operation.py</url>
-          <line>254</line>
-          <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/read_image.py</url>
           <line>46</line>
           <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/activate_experiment.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/feature_operation.py</url>
-          <line>66</line>
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/read_image.py</url>
@@ -523,32 +451,32 @@
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/places365_val_exp.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="106" />
+          <url>file://$PROJECT_DIR$/activate_experiment.py</url>
+          <line>169</line>
+          <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/places365_val_exp.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="107" />
+          <url>file://$PROJECT_DIR$/activate_experiment.py</url>
+          <line>180</line>
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/places365_val_exp.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="108" />
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/places365_val_exp.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="109" />
+          <url>file://$PROJECT_DIR$/activate_experiment.py</url>
+          <line>158</line>
+          <option name="timeStamp" value="130" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/places365_val_exp.py</url>
-          <line>121</line>
-          <option name="timeStamp" value="112" />
+          <url>file://$PROJECT_DIR$/activate_experiment.py</url>
+          <line>156</line>
+          <option name="timeStamp" value="131" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="113" />
+      <option name="time" value="132" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -582,113 +510,67 @@
         <watch expression="pixels" />
         <watch expression="tally_bt" />
         <watch expression="activate_info" />
+        <watch expression="img_fn_list" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>labels</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>np.argmax(logit[0].data.cpu().numpy())</expression-string>
+        <expression-string>feature_details</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>logit[0].data.cpu().numpy()</expression-string>
+        <expression-string>_details[idx])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>type(logit[0])</expression-string>
+        <expression-string>activate_info</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>logit[0]</expression-string>
+        <expression-string>labels</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.array(logit[0])</expression-string>
+        <expression-string>true_images</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.argmax(np.array(logit[0])</expression-string>
+        <expression-string>dt_features</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.argmax(np.array(logit[0]))</expression-string>
+        <expression-string>feature_names</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>logit[0].shape</expression-string>
+        <expression-string>target_names</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>logit</expression-string>
+        <expression-string>dt_features_file</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/feature_operation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loader/data_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
-          <caret line="90" column="25" lean-forward="false" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visualize/bargraph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="108" column="48" lean-forward="false" selection-start-line="108" selection-start-column="48" selection-end-line="108" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loader/model_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/feature_operation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2844">
-          <caret line="158" column="8" lean-forward="false" selection-start-line="158" selection-start-column="8" selection-end-line="159" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
@@ -729,7 +611,7 @@
         <state relative-caret-position="9580">
           <caret line="492" column="25" lean-forward="false" selection-start-line="492" selection-start-column="25" selection-end-line="492" selection-end-column="25" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -858,13 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="319" column="0" lean-forward="false" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/os.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -904,7 +779,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +786,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -921,7 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -930,16 +802,6 @@
         <state relative-caret-position="386">
           <caret line="368" column="43" lean-forward="false" selection-start-line="368" selection-start-column="43" selection-end-line="368" selection-end-column="43" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visualize/report.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="84" column="14" lean-forward="false" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
-          <folding>
-            <element signature="e#62#71#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -955,50 +817,110 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2074">
           <caret line="133" column="16" lean-forward="false" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/loader/data_loader.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/bokeh/server/static/js/bokeh.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="19167" column="4" lean-forward="false" selection-start-line="19167" selection-start-column="4" selection-end-line="19167" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/jupyterlab/build/main.bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3428220">
+          <caret line="197937" column="8" lean-forward="false" selection-start-line="197937" selection-start-column="8" selection-end-line="197937" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rope/refactor/extract.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparktest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+        <state relative-caret-position="238">
+          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/read_image.py">
+    <entry file="file://$PROJECT_DIR$/visualize/report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+        <state relative-caret-position="1583">
+          <caret line="141" column="25" lean-forward="false" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loader/data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="584">
+          <caret line="187" column="18" lean-forward="false" selection-start-line="187" selection-start-column="18" selection-end-line="187" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#29#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/memmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5610">
+          <caret line="334" column="0" lean-forward="false" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/activate_experiment.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/sklearn/externals/six.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="7412">
+          <caret line="438" column="0" lean-forward="false" selection-start-line="438" selection-start-column="0" selection-end-line="438" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/places365_val_exp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-108">
+          <caret line="153" column="21" lean-forward="false" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="319" column="0" lean-forward="false" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/read_image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/feature_operation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+        <state relative-caret-position="-102">
+          <caret line="102" column="21" lean-forward="false" selection-start-line="102" selection-start-column="21" selection-end-line="102" selection-end-column="21" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1007,18 +929,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="30" column="81" lean-forward="true" selection-start-line="30" selection-start-column="81" selection-end-line="30" selection-end-column="81" />
+        <state relative-caret-position="457">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/places365_val_exp.py">
+    <entry file="file://$PROJECT_DIR$/activate_experiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="130" column="70" lean-forward="true" selection-start-line="130" selection-start-column="70" selection-end-line="130" selection-end-column="70" />
+        <state relative-caret-position="76">
+          <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
