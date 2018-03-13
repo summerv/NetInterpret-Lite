@@ -5,8 +5,8 @@ from visualize.report import generate_html_summary
 from util.clean import clean
 import time
 import activate_experiment
-from places365_val_exp import Places365FeatureExtractor
 import places365_val_exp
+from places365_val_exp import Places365FeatureExtractor
 
 start_time = time.time()
 
@@ -19,7 +19,7 @@ model2 = loadmodel(places365_val_exp.hook_feature)
 features, maxfeature = fo.feature_extraction(model=model)
 
 ########### STEP 1.5: places365_val featre extraction ###########
-places365_features = pfe.feature_extraction(model=model2)
+places365_features, true_index, images_365 = pfe.feature_extraction(model=model2)
 
 for layer_id, layer in enumerate(settings.FEATURE_NAMES):
     ############ STEP 2: calculating threshold ############
@@ -38,8 +38,9 @@ for layer_id, layer in enumerate(settings.FEATURE_NAMES):
                           thresholds=thresholds)
 
     ########### STEP5: experiment about whether images activate more on units which have meanings ########
-    # activate_experiment.activate_exp(fo.data, features[layer_id], thresholds, rendered_order)
-
+    # activate_experiment.activate_exp_broden(fo.data, features[layer_id], thresholds, rendered_order)
+    activate_info, dt_features, true_images, feature_names = activate_experiment.activate_exp_places365(images_365[:100], true_index[:100], places365_features[layer_id][:100], thresholds, rendered_order)
+    activate_experiment.gen_gbdt(dt_features, true_images, feature_names)
     if settings.CLEAN:
         clean()
 
