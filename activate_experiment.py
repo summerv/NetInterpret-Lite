@@ -6,6 +6,8 @@ from sklearn import tree
 import graphviz
 from matplotlib.image import imread
 import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 UNITS_COUNT = 512
 
@@ -66,30 +68,44 @@ def activate_exp_places365(images, true_index, features, thresholds, rendered_or
     :param rendered_order:
     :return: activate_info, dt_features, true_images, feature_names
     '''
+
     print("start features calculating...")
-    activate_info = []
-    dt_features = []
+    # activate_info = []
+    dt_features = None    # dt_features.shape = (len(true_images), UNITS_COUNT)
+    dt_features_size = None
     true_images = []  # only include images classified correctly, [{'img_idx':xx(0~36500), 'img_fn':xx, 'img_label':xx(0-355)}]
     feature_names = []
 
-    activate_info_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "true_activate_info.npy")
-    dt_features_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "dt_features.npy")
+    # activate_info_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "true_activate_info.npy")
+    dt_features_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "dt_features_%s.mmap" % settings.FEATURE_NAMES[0])
+    dt_features_size_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "dt_features_size.npy")
     true_images_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "true_images.npy")
     feature_names_file = os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "feature_names.npy")
 
-    if os.path.exists(activate_info_file) and os.path.exists(dt_features_file) and os.path.exists(true_images_file) \
-            and os.path.exists(feature_names_file):
-        activate_info = numpy.load(activate_info_file)
-        dt_features = numpy.load(dt_features_file)
+    skip = True
+    if os.path.exists(dt_features_size_file) and os.path.exists(true_images_file) and os.path.exists(feature_names_file):
+        dt_features_size = numpy.load(dt_features_size_file)
         true_images = numpy.load(true_images_file)
         feature_names = numpy.load(feature_names_file)
-        return activate_info, dt_features, true_images, feature_names
+    else:
+        skip = False
+
+    if os.path.exists(dt_features_file) and dt_features_size is not None:
+        print('loading dt_features...')
+        dt_features = numpy.memmap(dt_features_file, dtype=float, mode='r', shape=tuple(dt_features_size))
+    else:
+        print("dt_features file missing, loading from scratch")
+        skip = False
+
+    if skip:
+        return dt_features, true_images, feature_names
 
     # activate_rate[img][unit] == x, img activates x(percent) pixels on this unit
     activate_rate = numpy.zeros((len(images), UNITS_COUNT), dtype='float')
 
     for img_idx, img in enumerate(images):
-        print("processing img_idx: %d / %d" % (img_idx, len(images)))
+        if img_idx % 100 == 0:
+            print("processing img_idx: %d / %d" % (img_idx, len(images)))
         if not true_index[img_idx]:
             continue
         img_fn = img['image']
@@ -108,74 +124,119 @@ def activate_exp_places365(images, true_index, features, thresholds, rendered_or
         feature_names.append(item['label'])
 
     for idx, img in enumerate(true_images):
-        img_info = [None] * UNITS_COUNT       # each img_info contains UNITS_COUNT {}, each {} includes unit/score/cat/label
+        # img_info = [None] * UNITS_COUNT       # each img_info contains UNITS_COUNT {}, each {} includes unit/score/cat/label
         img_features = [None] * UNITS_COUNT   # 512 features in dic format
         for unit_idx, unit_acti in enumerate(activate_rate[img['img_idx']]):
-            unit_info = {
-                'unit': unit_idx,
-                'score': rendered_order[unit_idx]['score'],
-                'label': rendered_order[unit_idx]['label'],
-                'category': rendered_order[unit_idx]['category'],
-                'acti_rate': unit_acti
-            }
-            img_info[unit_idx] = unit_info
+            # unit_info = {
+            #     'unit': unit_idx,
+            #     'score': rendered_order[unit_idx]['score'],
+            #     'label': rendered_order[unit_idx]['label'],
+            #     'category': rendered_order[unit_idx]['category'],
+            #     'acti_rpate': unit_acti
+            # }
+            # img_info[unit_idx] = unit_info
             img_features[unit_idx] = float(rendered_order[unit_idx]['score']) * unit_acti
 
-        img_info_sorted = sorted(img_info, key=lambda record: (-float(record['acti_rate']), -float(record['score'])))
-        activate_info.append(img_info_sorted)
-        dt_features.append(img_features)
+        # img_info_sorted = sorted(img_info, key=lambda record: (-float(record['acti_rate']), -float(record['score'])))
+        # activate_info.append(img_info_sorted)
 
-    numpy.save(activate_info_file, activate_info)
-    numpy.save(dt_features_file, dt_features)
+        if dt_features is None:
+            dt_features_size = (len(true_images), UNITS_COUNT)
+            dt_features = numpy.memmap(dt_features_file, dtype=float, mode='w+', shape=dt_features_size)
+
+        dt_features[idx] = img_features
+
+    numpy.save(dt_features_size_file, dt_features_size)
+    print(numpy.array(dt_features_size).shape)
+    numpy.save(feature_names_file, feature_names)
+    print(numpy.array(feature_names).shape)
+    numpy.save(true_images_file, true_images)
+    print(numpy.array(true_images).shape)
+    print("dt_features_size: ", dt_features_size)
+
+    # numpy.save(activate_info_file, activate_info)
+    # print(numpy.array(activate_info).shape)
     print("finishing features calculating...")
 
-    return activate_info, dt_features, true_images, feature_names
+    return dt_features, true_images, feature_names
 
 
 def gen_gbdt(dt_features, true_images, feature_names):
     with open(os.path.join(settings.PLACES365_VAL_DIRECTORY, 'categories_places365.txt')) as f:
-        target_names = numpy.array([line.split(' ')[0].split('/')[2:][0] for line in f.readlines()])
+        target_names = numpy.array([line.split(' ')[0].split('/')[2:] for line in f.readlines()])
 
-    x = numpy.array(dt_features)
+    for name in target_names:
+        if len(name) > 1:
+            name[0] += '/' + name[1]
 
-    labels = numpy.array([img['img_label'] for img in true_images])
+    target_names = [name[0] for name in target_names]
 
+    statistic = {}  # {label: count} in 'true_images'
+    for img in true_images:
+        statistic[target_names[img['img_label']]] = statistic.setdefault(target_names[img['img_label']], 0) + 1
+    statistic_sorted = sorted(statistic.items(), key=lambda d: d[1], reverse=False)
+
+    print('------ statistic {label: count} in "true_images" ------')
+    for item in statistic_sorted:
+        print(item)
+
+    # selected_label_list = [item[0] for item in statistic if item[1] >= 90]
+    # selected_label_list = ['beach', 'bedroom', 'bookstore', 'waterfall', 'swimming_pool/indoor']
+    selected_label_list = ['bamboo_forest']
+    for label in selected_label_list:
+        print(label, " count:", statistic[label])
+    print(selected_label_list)
+
+    selected_true_images_flag = [True if target_names[img['img_label']] in selected_label_list else False for img in true_images ]
+
+    selected_dt_features = [feature for i, feature in enumerate(dt_features) if selected_true_images_flag[i]]
+
+    # -------- draw the heatmap of dt_features to see whether the same class would activate same units ---------
+    df = pd.DataFrame(numpy.array(selected_dt_features))
+    # df = pd.DataFrame(selected_dt_features, columns=[x for x in feature_names])
+    sns.heatmap(df, annot=False)
+    plt.show()
+
+    x = numpy.array(selected_dt_features)
+    labels = numpy.array([img['img_label'] for i, img in enumerate(true_images) if selected_true_images_flag[i]])
     feature_details = [None] * len(x)
-    for idx, img_features in enumerate(dt_features):
+    print("len_label:", len(labels))
+    print("dt_features.shape: ", dt_features.shape)
+    for idx, img_features in enumerate(selected_dt_features):
         feature_detail = {}
         for i in range(len(img_features)):
             if img_features[i] > 0.0:
                 feature_detail[feature_names[i]] = img_features[i]
-
+        feature_detail[target_names[labels[idx]]] = 100    # label_name
         feature_detail = sorted(feature_detail.items(), key=lambda d: d[1], reverse=True)
-
         feature_details[idx] = feature_detail
-        img = imread(os.path.join(settings.PLACES365_VAL_DIRECTORY, 'images_224', true_images[idx]['img_fn']))
-        plt.imshow(img)
-        plt.axis('off')
-        plt.show()
-        print(feature_details[idx])
+        # img = imread(os.path.join(settings.PLACES365_VAL_DIRECTORY, 'images_224', true_images[idx]['img_fn']))
+        # plt.imshow(img)
+        # plt.axis('off')
+        # plt.show()
+        # print("feature_details[%d]:" % idx)
+        # print(feature_details[idx])
 
-    clf = tree.DecisionTreeClassifier()
-    # clf = tree.DecisionTreeClassifier(criterion='entropy', max_depth=7, min_samples_split=20,
-    #                                   min_samples_leaf=10)  # CART, entropy as criterion
+    statistic = {}
+    for img in true_images:
+        if target_names[img['img_label']] in selected_label_list:
+            statistic[target_names[img['img_label']]] = statistic.setdefault(target_names[img['img_label']], 0) + 1
+    statistic = sorted(statistic.items(), key=lambda d: d[1], reverse=False)
+    print(statistic)
+
+    # clf = tree.DecisionTreeClassifier()
+    clf = tree.DecisionTreeClassifier(criterion='entropy', max_depth=4, min_samples_split=20,
+                                      min_samples_leaf=10)  # CART, entropy as criterion
     clf = clf.fit(x, labels)
 
-    # print(clf)
-    dot_data = tree.export_graphviz(clf, out_file=None)
-    graph = graphviz.Source(dot_data)
-    graph.render("test1.pdf")
     dot_data = tree.export_graphviz(clf, out_file=None,
                                     feature_names=feature_names,
-                                    class_names=target_names,
+                                    class_names=selected_label_list,
                                     filled=True,
                                     special_characters=True)
-
     graph = graphviz.Source(dot_data)
+    graph.render("test4")
 
-
+2
 if __name__ == '__main__':
-    with open(os.path.join(settings.PLACES365_VAL_DIRECTORY, 'categories_places365.txt')) as f:
-        # file_nametarget_names = numpy.array([line.split(' ')[0].split('/')[2:] for line in f.readlines()])
-        target_names = numpy.array([line.split(' ')[0].split('/')[2:][0] for line in f.readlines()])
-    print(target_names)
+    pass

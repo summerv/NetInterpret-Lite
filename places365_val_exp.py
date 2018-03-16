@@ -61,6 +61,8 @@ class Places365FeatureExtractor:
         if memmap:
             skip_size = True
             skip_trueidx = True
+            skip_predictedlabel = True
+
             mmap_files = [os.path.join(settings.PLACES365_VAL_OUTPUT_FOLDER, "%s.mmap" % feature_name) for feature_name in settings.FEATURE_NAMES]
 
             if os.path.exists(features_size_file):
@@ -73,16 +75,21 @@ class Places365FeatureExtractor:
             else:
                 skip_trueidx = False
 
+            if os.path.exists(predicted_label_file):
+                predicted_label = np.load(predicted_label_file)
+            else:
+                skip_predictedlabel = False
+
             for i, mmap_file in enumerate(mmap_files):
-                if os.path.exists(mmap_file) and os.path.exists(trueidx_file) and features_size[i] is not None:
+                if os.path.exists(mmap_file) and features_size[i] is not None:
                     print('loading features %s' % settings.FEATURE_NAMES[i])
                     wholefeatures[i] = np.memmap(mmap_file, dtype=float, mode='r', shape=tuple(features_size[i]))
                 else:
                     print('file missing, loading from scratch')
                     skip_size = False
 
-            if skip_size and skip_trueidx:
-                return wholefeatures, true_index, self.images
+            if skip_size and skip_trueidx and skip_predictedlabel:
+                return wholefeatures, true_index, self.images, predicted_label
 
         num_batches = len(self.images)
         for batch_idx, batch in enumerate(self.images):
@@ -147,7 +154,7 @@ class Places365FeatureExtractor:
                     wholefeatures[i][start_idx:end_idx] = feat_batch
         print(true_count)
         print("acc: %.2f" % (true_count / len(self.images)))   # 19303/36500 = 0.52
-        return wholefeatures, true_index, self.images
+        return wholefeatures, true_index, self.images, predicted_label
 
     def preprocess_places365(self):
         '''
