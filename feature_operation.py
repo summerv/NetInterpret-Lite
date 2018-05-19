@@ -34,6 +34,9 @@ class FeatureOperator:
         features_size = [None] * len(settings.FEATURE_NAMES)
         features_size_file = os.path.join(settings.OUTPUT_FOLDER, "feature_size.npy")
 
+        # torch.distributed.init_process_group(world_size=4, init_method='...')
+        # model = torch.nn.DistributedDataParallel(model)
+
         if memmap:
             skip = True
             mmap_files = [os.path.join(settings.OUTPUT_FOLDER, "%s.mmap" % feature_name) for feature_name in settings.FEATURE_NAMES]
@@ -70,6 +73,7 @@ class FeatureOperator:
                 input = input.cuda()
             input_var = V(input, volatile=True)    # input_var.shape can be like(len(images in batch[0]), 3, 224, 224)
             logit = model.forward(input_var)       # input_var.shape can be like(len(images in batch[0]), 365#classes#)
+
             while np.isnan(logit.data.max()):
                 print("nan")                       # which I have no idea why it will happen
                 del features_blobs[:]
@@ -103,7 +107,7 @@ class FeatureOperator:
                 if len(feat_batch.shape) == 4:
                     wholefeatures[i][start_idx:end_idx] = feat_batch
                     # np.max(x, i) means get the max number in the i-th index of x and return a list
-                    # x = [[1,5,3],[4,2,6]], np.max(x,0) == [1,2,3]
+                    # x = [[1,5,3],[4,2,6]], np.max(x,0) == [4,5,6]
                     maxfeatures[i][start_idx:end_idx] = np.max(np.max(feat_batch,3),2)
                 elif len(feat_batch.shape) == 3:
                     maxfeatures[i][start_idx:end_idx] = np.max(feat_batch, 2)
@@ -115,7 +119,7 @@ class FeatureOperator:
         # for resnet18_place365_layer4:
         # wholefeatures[0].shape = (63305, 512, 7, 7)
         # maxfeatures[0].shape = (63305, 512)
-        return wholefeatures,maxfeatures
+        return wholefeatures, maxfeatures
 
     def quantile_threshold(self, features, savepath=''):
         # For resnet18_place365, layer=['layer4']:
