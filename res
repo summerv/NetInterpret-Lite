@@ -1,0 +1,1 @@
+/media/vicky/Seagate/res
